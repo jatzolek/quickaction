@@ -22,11 +22,14 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
+import android.view.View;
 
 /**
  * Action item, displayed as menu with icon and text.
  */
 public class ActionItem {
+
+  private View actionView;
   private Bitmap thumb;
   private String title;
   private int icon = -1;
@@ -210,5 +213,13 @@ public class ActionItem {
 
   @Override public int hashCode() {
     return actionId;
+  }
+
+  public View getActionView() {
+    return actionView;
+  }
+
+  public void setActionView(View actionView) {
+    this.actionView = actionView;
   }
 }

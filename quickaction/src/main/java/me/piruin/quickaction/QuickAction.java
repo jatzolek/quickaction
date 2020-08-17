@@ -91,7 +91,7 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
    * @param context Context
    */
   public QuickAction(@NonNull Context context) {
-    this(context, VERTICAL);
+    this(context, HORIZONTAL);
   }
 
   /**
@@ -265,6 +265,49 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
     addActionView(position, createViewFrom(action));
   }
 
+  public void setVisible(int actionId, boolean v) {
+
+    int c = -1;
+    boolean found = false;
+    for (ActionItem ai : actionItems) {
+      c++;
+      if (ai.getActionId() == actionId) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      if (!enabledDivider) {
+        track.getChildAt(c).setVisibility(v ? View.VISIBLE : View.GONE);
+      } else {
+        int viewPos = c*2;
+        track.getChildAt(viewPos).setVisibility(v ? View.VISIBLE : View.GONE);
+        track.getChildAt(c == 0 ? 0 : viewPos-1).setVisibility(v ? View.VISIBLE : View.GONE); //remove divider
+      }
+    }
+  }
+
+  public void changeTitleAndIcon(int idx, String title, Drawable icon) {
+
+    View container = getActionItem(idx).getActionView();
+    if (!(container instanceof TextView)) return;
+
+    TextView text 	= (TextView) container;
+
+    if (icon != null) {
+      if (orientation == HORIZONTAL) {
+        text.setCompoundDrawables(null, icon, null, null);
+      } else {
+        text.setCompoundDrawables(icon, null, null, null);
+      }
+    } else {
+      text.setCompoundDrawables(null, null, null, null);
+    }
+
+    text.setText(title);
+  }
+
   private void addActionView(int position, View actionView) {
     if (enabledDivider && position != 0) {
       position *= 2;
@@ -326,6 +369,9 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
     });
     actionView.setFocusable(true);
     actionView.setClickable(true);
+
+    action.setActionView(actionView);
+
     return actionView;
   }
 
@@ -351,6 +397,25 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
   }
 
   /**
+   * Get action index by actionId
+   *
+   * @param actionId
+   * @return int index od Action
+   */
+  public int getActionIdx(int actionId) {
+
+    int c = -1;
+    for (ActionItem ai : actionItems) {
+      c++;
+      if (ai.getActionId() == actionId) {
+        break;
+      }
+    }
+
+    return c;
+  }
+
+  /**
    * remove action item
    *
    * @param actionId Id of action to remove
@@ -359,6 +424,7 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
   public ActionItem remove(int actionId) {
     return remove(getActionItemById(actionId));
   }
+
 
   /**
    * remove action item

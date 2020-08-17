@@ -15,7 +15,7 @@ buildscript {
     google()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.4'
+    classpath 'com.android.tools.build:gradle:4.0.1'
   }
 }
 
@@ -33,10 +33,6 @@ ext {
   ANDROID_TARGET_SDK = 27
   ANDROID_SUPPORT_VERSION = "27.1.1"
 
-  githubRepo = 'piruin/quickaction'
+  githubRepo = 'jatzolek/quickaction'
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '4.5.1'
-  distributionUrl = distributionUrl.replace("bin", "all")
-}
