@@ -15,7 +15,7 @@
   -->
 
 <resources>
-  <dimen name="quick_action_icon_size">24dp</dimen>
+  <dimen name="quick_action_icon_size">32dp</dimen>
   <dimen name="quick_action_arrow_width">30dp</dimen>
   <dimen name="quick_action_arrow_height">20dp</dimen>
   <dimen name="quick_action_corner">4dp</dimen>

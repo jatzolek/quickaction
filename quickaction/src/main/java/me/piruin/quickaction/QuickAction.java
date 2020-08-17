@@ -294,8 +294,13 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
     if (!(container instanceof TextView)) return;
 
     TextView text 	= (TextView) container;
+    text.setText(title);
 
     if (icon != null) {
+
+      int iconSize = resource.getDimensionPixelOffset(R.dimen.quick_action_icon_size);
+      icon.setBounds(0, 0, iconSize, iconSize);
+
       if (orientation == HORIZONTAL) {
         text.setCompoundDrawables(null, icon, null, null);
       } else {
@@ -305,7 +310,6 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
       text.setCompoundDrawables(null, null, null, null);
     }
 
-    text.setText(title);
   }
 
   private void addActionView(int position, View actionView) {
